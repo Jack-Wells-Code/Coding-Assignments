@@ -105,3 +105,39 @@ public class Bag<T> {
         return bag.toString(); // Returns the bag as a string
     }
 }
+
+public class BagUsage {
+    public static void main(String[] args) {
+        // Creates two instances of the Bag class
+        Bag<String> bag1 = new Bag<>();
+        Bag<String> bag2 = new Bag<>();
+
+        // Adding some elements to the first bag, including duplicates
+        bag1.add("Red");
+        bag1.add("Blue");
+        bag1.add("Yellow");
+        bag1.add("Red");
+
+        // Adding some elements to the second bag, including duplicates
+        bag2.add("Green");
+        bag2.add("Blue");
+        bag2.add("Yellow");
+        bag2.add("Purple");
+
+        // Print the size of each bag
+        System.out.println("Size of bag1: " + bag1.size());
+        System.out.println("Size of bag2: " + bag2.size());
+
+        // Merging bag2 into bag1
+        bag1.merge(bag2);
+
+        // Print the merged bag contents
+        System.out.println("Merged bag contents: " + bag1);
+
+        // Create a new bag containing only the distinct elements
+        Bag<String> distinctBag = bag1.distinct();
+
+        // Print the distinct bag contents
+        System.out.println("Distinct bag contents: " + distinctBag);
+    }
+}
