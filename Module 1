@@ -1,0 +1,107 @@
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * The Bag class represents a collection of elements that allows duplicates and does not enforce any particular order.
+ * @param <T> the type of elements in this bag
+ *
+ * @author Jack Wells
+ * @version 1.8
+ * @Date 5/19/2024
+ */
+public class Bag<T> {
+    private final Map<T, Integer> bag; // Initialize the map known as bag
+
+    /**
+     * Constructs an empty bag.
+     */
+    public Bag() {
+        bag = new HashMap<>(); // Construct the bag, could do this in the declaration above if you wanted to do without a constructor
+    }
+
+    /**
+     * Adds an item to the bag.
+     *
+     * @param item the item to be added to the bag
+     */
+    public void add(T item) {
+        bag.put(item, bag.getOrDefault(item, 0) + 1); // Check if the item already exists, if not, default value is set to 0 and is incremented by 1
+    }
+
+    /**
+     * Removes one occurrence of the item from the bag, if it exists.
+     *
+     * @param item the item to be removed from the bag
+     */
+    public void remove(T item) {
+        if (bag.containsKey(item)) { // If the item exists
+            if (bag.get(item) > 1) { // Check if the count is greater than one
+                bag.put(item, bag.get(item) - 1); // Remove one occurrence of the item by decrementing it
+            } else {
+                bag.remove(item); // If the items count is one, remove the item completely
+            }
+        }
+    }
+
+    /**
+     * Checks if the item exists in the bag.
+     *
+     * @param item the item whose presence in the bag is to be tested
+     * @return true if the item exists in the bag; false otherwise
+     */
+    public boolean contains(T item) {
+        return bag.containsKey(item); // Check if the item exists
+    }
+
+    /**
+     * Returns the count of the item in the bag.
+     *
+     * @param item the item whose count is to be retrieved
+     * @return the count of the item in the bag
+     */
+    public int count(T item) {
+        return bag.getOrDefault(item, 0); // Get the current count of an item
+    }
+
+    /**
+     * Returns the total number of elements in the bag, including duplicates.
+     *
+     * @return the total number of elements in the bag
+     */
+    public int size() {
+        int size = 0;
+        for (int count : bag.values()) {
+            size += count; // Sum the counts of all items
+        }
+        return size;
+    }
+
+    /**
+     * Merges the elements of another bag into this bag.
+     *
+     * @param otherBag the other bag whose elements are to be merged into this bag
+     */
+    public void merge(Bag<T> otherBag) {
+        for (Map.Entry<T, Integer> entry : otherBag.bag.entrySet()) {
+            bag.put(entry.getKey(), bag.getOrDefault(entry.getKey(), 0) + entry.getValue()); // Add counts from the other bag
+        }
+    }
+
+    /**
+     * Returns a new bag that contains only the distinct elements from the current bag.
+     *
+     * @return a new bag with distinct elements
+     */
+    public Bag<T> distinct() {
+        Bag<T> distinctBag = new Bag<>();
+        for (T item : bag.keySet()) {
+            distinctBag.add(item); // Add each key as a distinct element
+        }
+        return distinctBag;
+    }
+
+    @Override // Override the object class to avoid errors
+    public String toString() {
+        return bag.toString(); // Returns the bag as a string
+    }
+}
