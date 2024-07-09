@@ -1,3 +1,4 @@
+```ruby
 import java.util.HashMap;
 import java.util.Map;
 
@@ -141,3 +142,4 @@ public class BagUsage {
         System.out.println("Distinct bag contents: " + distinctBag);
     }
 }
+```
